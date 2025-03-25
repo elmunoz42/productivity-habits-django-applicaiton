@@ -1,0 +1,256 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Productivity Habits - Make 2025 Your Best Year Ever{% endblock %}
+
+{% block content %}
+<div class="container-fluid p-0">
+    <!-- Hero section -->
+    <div class="container-fluid bg-primary text-white py-5">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4">Make 2025 Your Best Year Ever</h1>
+                    <p class="lead mb-4">A practical framework based on Ali Abdaal's 6 key productivity habits that will help you achieve more while feeling good in the process.</p>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'dashboard' %}" class="btn btn-light btn-lg px-4 me-md-2">Go to Dashboard</a>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="btn btn-light btn-lg px-4 me-md-2">Get Started</a>
+                            <a href="{% url 'about' %}" class="btn btn-outline-light btn-lg px-4">Learn More</a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-5 mt-lg-0 text-center">
+                    <img src="{% static 'img/productivity-hero.svg' %}" alt="Productivity Illustration" class="img-fluid" style="max-height: 400px;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feature section -->
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">6 Key Productivity Habits</h2>
+            <p class="lead text-muted">Implement these habits to transform your productivity and well-being</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm hover-card">
+                    <div class="card-body text-center p-4">
+                        <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <i class="fas fa-trophy fa-2x"></i>
+                        </div>
+                        <h4 class="fw-bold">Quarterly Quests</h4>
+                        <p class="text-muted">Instead of annual goals, set 3-4 meaningful objectives for the next 90 days. These are easier to visualize and accomplish.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm hover-card">
+                    <div class="card-body text-center p-4">
+                        <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <i class="fas fa-sync fa-2x"></i>
+                        </div>
+                        <h4 class="fw-bold">Weekly Reset</h4>
+                        <p class="text-muted">Spend 20 minutes each week reviewing your progress, celebrating wins, and setting priorities for the week ahead.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm hover-card">
+                    <div class="card-body text-center p-4">
+                        <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <i class="fas fa-sun fa-2x"></i>
+                        </div>
+                        <h4 class="fw-bold">Morning Manifesto</h4>
+                        <p class="text-muted">A 2-minute morning check-in to review your weekly priorities and set your most important task for the day.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm hover-card">
+                    <div class="card-body text-center p-4">
+                        <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <i class="fas fa-stopwatch fa-2x"></i>
+                        </div>
+                        <h4 class="fw-bold">Focus Log</h4>
+                        <p class="text-muted">Track how many minutes you spend in focused work. Simply measuring your focus time will help improve it.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm hover-card">
+                    <div class="card-body text-center p-4">
+                        <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <i class="fas fa-users fa-2x"></i>
+                        </div>
+                        <h4 class="fw-bold">Standing Order Social Events</h4>
+                        <p class="text-muted">Schedule regular social events that happen on a fixed schedule without needing to coordinate each time.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 border-0 shadow-sm hover-card">
+                    <div class="card-body text-center p-4">
+                        <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                            <i class="fas fa-microphone fa-2x"></i>
+                        </div>
+                        <h4 class="fw-bold">Multimodality Multitasking</h4>
+                        <p class="text-muted">Make productive use of "dead time" by combining tasks that use different modalities (e.g., walking while listening).</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Claude AI section -->
+    <div class="container-fluid bg-light py-5">
+        <div class="container py-3">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="fw-bold mb-3">AI-Powered Productivity Insights</h2>
+                    <p class="lead mb-4">Get personalized recommendations and insights from Claude AI based on your productivity data.</p>
+                    <ul class="list-unstyled">
+                        <li class="mb-3">
+                            <i class="fas fa-check-circle text-primary me-2"></i>
+                            <strong>Quarterly Analysis</strong> - Get strategic recommendations for your long-term goals
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-check-circle text-primary me-2"></i>
+                            <strong>Weekly Insights</strong> - Understand your productivity patterns and optimize your week
+                        </li>
+                        <li class="mb-3">
+                            <i class="fas fa-check-circle text-primary me-2"></i>
+                            <strong>Daily Guidance</strong> - Receive personalized tips to make the most of each day
+                        </li>
+                    </ul>
+                    <div class="mt-4">
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'dashboard' %}" class="btn btn-primary btn-lg">View Your Insights</a>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="btn btn-primary btn-lg">Get Started</a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-5 mt-lg-0 text-center">
+                    <img src="{% static 'img/ai-insights.svg' %}" alt="AI Insights Illustration" class="img-fluid" style="max-height: 400px;">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonials section -->
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">What Users Say</h2>
+            <p class="lead text-muted">These habits have transformed productivity for thousands of people</p>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                        </div>
+                        <p class="mb-4">"The Quarterly Quests approach has completely transformed how I set goals. Breaking things down into 90-day chunks makes everything so much more manageable."</p>
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">JD</div>
+                            <div>
+                                <h6 class="fw-bold mb-0">Jamie Diaz</h6>
+                                <small class="text-muted">Product Manager</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                        </div>
+                        <p class="mb-4">"The weekly reset changed everything for me. Taking 20 minutes each week to review and plan has made me more focused and less stressed about what I'm working on."</p>
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">SL</div>
+                            <div>
+                                <h6 class="fw-bold mb-0">Sarah Lee</h6>
+                                <small class="text-muted">Graphic Designer</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                        </div>
+                        <p class="mb-4">"I never realized how much focus time I was actually getting until I started tracking it. The focus log feature has motivated me to stay on task and be more intentional with my time."</p>
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3" style="width: 50px; height: 50px;">MT</div>
+                            <div>
+                                <h6 class="fw-bold mb-0">Michael Torres</h6>
+                                <small class="text-muted">Software Engineer</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA section -->
+    <div class="container-fluid bg-primary text-white py-5">
+        <div class="container py-3">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8">
+                    <h2 class="fw-bold mb-4">Ready to make 2025 your best year ever?</h2>
+                    <p class="lead mb-4">Start implementing these 6 key habits today and transform your productivity.</p>
+                    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'dashboard' %}" class="btn btn-light btn-lg px-4">Go to Dashboard</a>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="btn btn-light btn-lg px-4">Get Started Now</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hover-card {
+        transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .hover-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+    }
+</style>
+{% endblock %}

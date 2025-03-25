@@ -1,0 +1,275 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Productivity Questions{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h1 class="mb-4">Productivity Questions</h1>
+    <p class="lead mb-5">
+        Based on Ali Abdaal's 6 key habits for a more productive year, here are guided questions to help you
+        establish these habits in your life. You can use these questions at different intervals to reflect on your productivity journey.
+    </p>
+
+    <div class="accordion" id="productivityAccordion">
+        <!-- Quarterly Quests Questions -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="quarterlyHeading">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#quarterlyCollapse" aria-expanded="true" aria-controls="quarterlyCollapse">
+                    Quarterly Questions (Every 90 Days)
+                </button>
+            </h2>
+            <div id="quarterlyCollapse" class="accordion-collapse collapse show" aria-labelledby="quarterlyHeading" data-bs-parent="#productivityAccordion">
+                <div class="accordion-body">
+                    <p class="fs-5 mb-4">Every 90 days, take time to set 3-4 meaningful goals (Quarterly Quests) that you want to accomplish.</p>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Habit #1: Quarterly Quests</h5>
+                            <p class="card-text">Instead of annual goals, focus on 90-day projects that are easier to visualize and accomplish.</p>
+                            
+                            <div class="mt-4">
+                                <h6 class="fw-bold">Work Quests</h6>
+                                <ol>
+                                    <li class="mb-3">What are 2-3 work projects that would significantly move the needle if completed in the next 90 days?</li>
+                                    <li class="mb-3">What skills do you want to develop in the next quarter that would enhance your career or business?</li>
+                                    <li class="mb-3">Is there a specific area of your work that needs focused attention right now?</li>
+                                    <li class="mb-3">What is one project that feels important but not urgent that you should prioritize?</li>
+                                </ol>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <h6 class="fw-bold">Life Quests</h6>
+                                <ol>
+                                    <li class="mb-3">What area of your personal life would benefit from intentional focus over the next 90 days?</li>
+                                    <li class="mb-3">Is there a habit you want to build or break in the next quarter?</li>
+                                    <li class="mb-3">What relationships would you like to strengthen in the coming months?</li>
+                                    <li class="mb-3">What personal project has been on your mind that you can break down into a 90-day plan?</li>
+                                </ol>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <h6 class="fw-bold">Execution Questions</h6>
+                                <ol>
+                                    <li class="mb-3">What milestones would indicate progress for each quest?</li>
+                                    <li class="mb-3">What specific actions will you take in the first week to build momentum?</li>
+                                    <li class="mb-3">How will you track your progress on these quests?</li>
+                                    <li class="mb-3">What potential obstacles might arise, and how will you address them?</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'quarterly_quest_create' %}" class="btn btn-primary">Create New Quarterly Quest</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Monthly Questions -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="monthlyHeading">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#monthlyCollapse" aria-expanded="false" aria-controls="monthlyCollapse">
+                    Monthly Questions
+                </button>
+            </h2>
+            <div id="monthlyCollapse" class="accordion-collapse collapse" aria-labelledby="monthlyHeading" data-bs-parent="#productivityAccordion">
+                <div class="accordion-body">
+                    <p class="fs-5 mb-4">Each month, evaluate your progress and adjust your approach as needed.</p>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Monthly Review Questions</h5>
+                            
+                            <div class="mt-4">
+                                <h6 class="fw-bold">Quarterly Quest Progress</h6>
+                                <ol>
+                                    <li class="mb-3">How are you progressing on each of your quarterly quests? Are you on track?</li>
+                                    <li class="mb-3">Which quest has seen the most progress? What contributed to that success?</li>
+                                    <li class="mb-3">Which quest has seen the least progress? What obstacles are you facing?</li>
+                                    <li class="mb-3">Do any quests need to be adjusted based on new information or circumstances?</li>
+                                </ol>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <h6 class="fw-bold">Habit Implementation</h6>
+                                <ol>
+                                    <li class="mb-3">How consistent have you been with your weekly resets this month?</li>
+                                    <li class="mb-3">How many days did you complete your morning manifesto?</li>
+                                    <li class="mb-3">How many total focus minutes did you log this month?</li>
+                                    <li class="mb-3">Have you maintained your standing order social events?</li>
+                                    <li class="mb-3">How often did you practice multimodality multitasking?</li>
+                                </ol>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <h6 class="fw-bold">Planning</h6>
+                                <ol>
+                                    <li class="mb-3">What are your top 3 priorities for the coming month?</li>
+                                    <li class="mb-3">What habit would you like to improve most next month?</li>
+                                    <li class="mb-3">Is there anything you need to stop doing to focus on your priorities?</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Weekly Reset Questions -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="weeklyHeading">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#weeklyCollapse" aria-expanded="false" aria-controls="weeklyCollapse">
+                    Weekly Questions
+                </button>
+            </h2>
+            <div id="weeklyCollapse" class="accordion-collapse collapse" aria-labelledby="weeklyHeading" data-bs-parent="#productivityAccordion">
+                <div class="accordion-body">
+                    <p class="fs-5 mb-4">The weekly reset is one of the most essential productivity habits. Spend 15-20 minutes each week reviewing and planning.</p>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Habit #2: Weekly Reset</h5>
+                            <p class="card-text">A 20-minute weekly review helps you stay on track with your priorities and intentions.</p>
+                            
+                            <div class="mt-4">
+                                <h6 class="fw-bold">Review Questions</h6>
+                                <ol>
+                                    <li class="mb-3">What went well this past week? What wins can you celebrate?</li>
+                                    <li class="mb-3">What challenges did you face? What did you learn?</li>
+                                    <li class="mb-3">Did you make progress on your quarterly quests? How much?</li>
+                                    <li class="mb-3">Did you accomplish your priorities from last week?</li>
+                                    <li class="mb-3">How much focused time did you log? Was it directed at your priorities?</li>
+                                </ol>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <h6 class="fw-bold">Planning Questions</h6>
+                                <ol>
+                                    <li class="mb-3">What are your top 1-3 priorities for the coming week?</li>
+                                    <li class="mb-3">What specific actions will you take to make progress on your quarterly quests?</li>
+                                    <li class="mb-3">What social events do you have scheduled this week?</li>
+                                    <li class="mb-3">Are there any commitments or deadlines you need to prepare for?</li>
+                                    <li class="mb-3">When will you schedule focus sessions to work on your priorities?</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'weekly_reset_current' %}" class="btn btn-primary">Complete Weekly Reset</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Daily Questions -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="dailyHeading">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#dailyCollapse" aria-expanded="false" aria-controls="dailyCollapse">
+                    Daily Questions
+                </button>
+            </h2>
+            <div id="dailyCollapse" class="accordion-collapse collapse" aria-labelledby="dailyHeading" data-bs-parent="#productivityAccordion">
+                <div class="accordion-body">
+                    <p class="fs-5 mb-4">Start each day with intention through your morning manifesto.</p>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h5 class="card-title">Habit #3: Morning Manifesto</h5>
+                            <p class="card-text">A 2-minute morning check-in to set your intention for the day ahead.</p>
+                            
+                            <div class="mt-4">
+                                <h6 class="fw-bold">Morning Manifesto Questions</h6>
+                                <ol>
+                                    <li class="mb-3">What were my weekly priorities again, and how are they going?</li>
+                                    <li class="mb-3">What is my most important task for today—my "adventure" for the day?</li>
+                                    <li class="mb-3">When will I work on this priority today?</li>
+                                    <li class="mb-3">What potential distractions might arise, and how will I handle them?</li>
+                                    <li class="mb-3">What will make today feel like a success?</li>
+                                </ol>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <h6 class="fw-bold">Focus Log Questions (Habit #4)</h6>
+                                <ol>
+                                    <li class="mb-3">When will I schedule focused work time today?</li>
+                                    <li class="mb-3">How many minutes do I aim to focus on my priorities today?</li>
+                                    <li class="mb-3">What environment do I need to create for deep focus?</li>
+                                </ol>
+                            </div>
+                            
+                            <div class="mt-4">
+                                <h6 class="fw-bold">End of Day Reflection</h6>
+                                <ol>
+                                    <li class="mb-3">Did I complete today's adventure (most important task)?</li>
+                                    <li class="mb-3">How many minutes of focused work did I log?</li>
+                                    <li class="mb-3">What went well today?</li>
+                                    <li class="mb-3">What could I improve tomorrow?</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                        <a href="{% url 'morning_manifesto_today' %}" class="btn btn-primary me-md-2">Morning Manifesto</a>
+                        <a href="{% url 'focus_session_start' %}" class="btn btn-outline-primary">Start Focus Session</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Other Habits -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="otherHabitsHeading">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#otherHabitsCollapse" aria-expanded="false" aria-controls="otherHabitsCollapse">
+                    Additional Productivity Habits
+                </button>
+            </h2>
+            <div id="otherHabitsCollapse" class="accordion-collapse collapse" aria-labelledby="otherHabitsHeading" data-bs-parent="#productivityAccordion">
+                <div class="accordion-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Habit #5: Standing Order Social Events</h5>
+                                    <p class="card-text">Regular social events that happen on a fixed schedule without needing to coordinate each time.</p>
+                                    
+                                    <div class="mt-4">
+                                        <h6 class="fw-bold">Reflection Questions</h6>
+                                        <ul>
+                                            <li class="mb-2">What weekly or biweekly social events would enrich your life?</li>
+                                            <li class="mb-2">Which relationships would you like to nurture through regular connection?</li>
+                                            <li class="mb-2">What day and time would work consistently for a standing social event?</li>
+                                            <li class="mb-2">What format would be most energizing for you (dinner, activities, etc.)?</li>
+                                        </ul>
+                                        <div class="mt-3">
+                                            <a href="{% url 'social_event_list' %}" class="btn btn-sm btn-outline-primary">Manage Social Events</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">Habit #6: Multimodality Multitasking</h5>
+                                    <p class="card-text">Making productive use of "dead time" by combining tasks that use different modalities.</p>
+                                    
+                                    <div class="mt-4">
+                                        <h6 class="fw-bold">Reflection Questions</h6>
+                                        <ul>
+                                            <li class="mb-2">What "dead time" exists in your day that could be more productive?</li>
+                                            <li class="mb-2">Which activities could you pair together (e.g., walking and listening to audiobooks)?</li>
+                                            <li class="mb-2">Could you use voice notes to capture ideas during commutes or chores?</li>
+                                            <li class="mb-2">What learning could you incorporate into your daily routines?</li>
+                                        </ul>
+                                        <div class="mt-3">
+                                            <a href="{% url 'voice_note_list' %}" class="btn btn-sm btn-outline-primary">Voice Notes</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

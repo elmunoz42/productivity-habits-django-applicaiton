@@ -1,0 +1,358 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dashboard | Productivity Habits{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <!-- Header Section -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="h3">Dashboard</h1>
+        <div>
+            <span class="badge bg-primary fs-6 me-2">Today: {{ today|date:"l, F j, Y" }}</span>
+            <a href="{% url 'productivity_questions' %}" class="btn btn-outline-primary">
+                <i class="fas fa-question-circle me-1"></i> Productivity Questions
+            </a>
+        </div>
+    </div>
+
+    <!-- Today's Focus Section -->
+    <div class="row mb-4">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Today's Focus</h5>
+                    <div>
+                        {% if active_focus_session %}
+                            <a href="{% url 'focus_session_active' %}" class="btn btn-danger btn-sm">
+                                <i class="fas fa-stopwatch me-1"></i> Active Session
+                            </a>
+                        {% else %}
+                            <a href="{% url 'focus_session_start' %}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-play me-1"></i> Start Focus Session
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="card-body">
+                    {% if todays_manifesto %}
+                        <div class="mb-3">
+                            <h6 class="fw-bold">Today's Adventure:</h6>
+                            <div class="p-3 bg-light rounded mb-3">
+                                <i class="fas fa-mountain text-primary me-2"></i>
+                                {{ todays_manifesto.todays_adventure }}
+                            </div>
+                            
+                            {% if todays_manifesto.notes %}
+                                <div class="mb-3">
+                                    <h6 class="fw-bold">Additional Notes:</h6>
+                                    <p>{{ todays_manifesto.notes }}</p>
+                                </div>
+                            {% endif %}
+                            
+                            <div class="d-flex justify-content-end">
+                                <a href="{% url 'morning_manifesto_today' %}" class="btn btn-outline-secondary btn-sm">Update</a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="fas fa-sun fa-3x text-warning mb-3"></i>
+                            <h5>No morning manifesto yet today</h5>
+                            <p class="text-muted">Start your day with intention by setting your most important task.</p>
+                            <a href="{% url 'morning_manifesto_today' %}" class="btn btn-primary">
+                                <i class="fas fa-plus me-1"></i> Create Morning Manifesto
+                            </a>
+                        </div>
+                    {% endif %}
+                    
+                    <hr>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="fw-bold">Focus Time This Week:</h6>
+                            <div class="d-flex align-items-center">
+                                <div class="display-4 me-3">{{ week_focus_time }}</div>
+                                <div class="text-muted">minutes</div>
+                            </div>
+                            <a href="{% url 'focus_session_history' %}" class="btn btn-sm btn-outline-primary mt-2">View History</a>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="fw-bold">Recent Focus Sessions:</h6>
+                            {% if recent_focus_sessions %}
+                                <ul class="list-group list-group-flush">
+                                    {% for session in recent_focus_sessions|slice:":3" %}
+                                        <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                            <span>
+                                                {% if session.project %}
+                                                    <span class="badge bg-secondary me-2">{{ session.project.title }}</span>
+                                                {% endif %}
+                                                {{ session.description|default:"Untitled" }}
+                                            </span>
+                                            <span class="badge bg-primary rounded-pill">{{ session.duration_minutes }} min</span>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                <p class="text-muted">No recent focus sessions.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card h-100">
+                <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Weekly Priorities</h5>
+                    <a href="{% url 'weekly_reset_current' %}" class="btn btn-outline-primary btn-sm">
+                        <i class="fas fa-sync me-1"></i> Weekly Reset
+                    </a>
+                </div>
+                <div class="card-body">
+                    {% if weekly_reset %}
+                        <div class="mb-4">
+                            <p class="text-muted mb-1">Week of {{ current_week_start|date:"M d" }} - {{ current_week_end|date:"M d" }}</p>
+                            
+                            {% if weekly_reset.priority_1 %}
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="bg-primary rounded-circle text-white fw-bold d-flex align-items-center justify-content-center me-2" style="width: 28px; height: 28px;">1</div>
+                                    <span>{{ weekly_reset.priority_1 }}</span>
+                                </div>
+                            {% endif %}
+                            
+                            {% if weekly_reset.priority_2 %}
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="bg-primary rounded-circle text-white fw-bold d-flex align-items-center justify-content-center me-2" style="width: 28px; height: 28px;">2</div>
+                                    <span>{{ weekly_reset.priority_2 }}</span>
+                                </div>
+                            {% endif %}
+                            
+                            {% if weekly_reset.priority_3 %}
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="bg-primary rounded-circle text-white fw-bold d-flex align-items-center justify-content-center me-2" style="width: 28px; height: 28px;">3</div>
+                                    <span>{{ weekly_reset.priority_3 }}</span>
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        {% if weekly_reset.wins %}
+                            <div>
+                                <h6 class="fw-bold">Last Week's Wins:</h6>
+                                <p>{{ weekly_reset.wins }}</p>
+                            </div>
+                        {% endif %}
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="fas fa-sync fa-3x text-primary mb-3"></i>
+                            <h5>No weekly reset for this week</h5>
+                            <p class="text-muted">Plan your week with a 20-minute review.</p>
+                            <a href="{% url 'weekly_reset_current' %}" class="btn btn-primary">
+                                <i class="fas fa-plus me-1"></i> Complete Weekly Reset
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quarterly Quests & Social Events Section -->
+    <div class="row mb-4">
+        <!-- Quarterly Quests -->
+        <div class="col-lg-8 mb-4 mb-lg-0">
+            <div class="card">
+                <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Active Quarterly Quests</h5>
+                    <a href="{% url 'quarterly_quest_create' %}" class="btn btn-outline-primary btn-sm">
+                        <i class="fas fa-plus me-1"></i> New Quest
+                    </a>
+                </div>
+                <div class="card-body">
+                    {% if active_quests %}
+                        <div class="row">
+                            {% for quest in active_quests %}
+                                <div class="col-md-6 mb-3">
+                                    <div class="card h-100 border-{% if quest.category == 'work' %}primary{% else %}success{% endif %}">
+                                        <div class="card-header bg-{% if quest.category == 'work' %}primary{% else %}success{% endif %} text-white d-flex justify-content-between align-items-center py-2">
+                                            <span>
+                                                <i class="fas {% if quest.category == 'work' %}fa-briefcase{% else %}fa-heart{% endif %} me-1"></i>
+                                                {{ quest.get_category_display }}
+                                            </span>
+                                            <span class="badge bg-light text-dark">{{ quest.days_remaining }} days left</span>
+                                        </div>
+                                        <div class="card-body">
+                                            <h6 class="card-title">{{ quest.title }}</h6>
+                                            <div class="progress mb-3">
+                                                <div class="progress-bar bg-{% if quest.category == 'work' %}primary{% else %}success{% endif %}" role="progressbar" style="width: {{ quest.progress }}%" aria-valuenow="{{ quest.progress }}" aria-valuemin="0" aria-valuemax="100">
+                                                    {{ quest.progress }}%
+                                                </div>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <small class="text-muted">Started: {{ quest.start_date|date:"M d, Y" }}</small>
+                                                <a href="{% url 'quarterly_quest_detail' pk=quest.pk %}" class="btn btn-sm btn-outline-{% if quest.category == 'work' %}primary{% else %}success{% endif %}">Details</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="fas fa-trophy fa-3x text-warning mb-3"></i>
+                            <h5>No active quarterly quests</h5>
+                            <p class="text-muted">Create 90-day goals for work and life.</p>
+                            <a href="{% url 'quarterly_quest_create' %}" class="btn btn-primary">
+                                <i class="fas fa-plus me-1"></i> Create First Quest
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'quarterly_quest_list' %}" class="text-decoration-none">
+                        View all quests <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Social Events & Voice Notes -->
+        <div class="col-lg-4">
+            <div class="card mb-4">
+                <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Standing Order Social Events</h5>
+                    <a href="{% url 'social_event_create' %}" class="btn btn-outline-primary btn-sm">
+                        <i class="fas fa-plus me-1"></i> New Event
+                    </a>
+                </div>
+                <div class="card-body">
+                    {% if upcoming_events %}
+                        <ul class="list-group list-group-flush">
+                            {% for event in upcoming_events|slice:":3" %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                    <div>
+                                        <h6 class="mb-0">{{ event.title }}</h6>
+                                        <small class="text-muted">{{ event.get_day_of_week_display }} at {{ event.time|time:"g:i A" }}</small>
+                                    </div>
+                                    <a href="{% url 'social_event_detail' pk=event.pk %}" class="btn btn-sm btn-outline-primary">Details</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <div class="text-center py-3">
+                            <i class="fas fa-users fa-2x text-primary mb-2"></i>
+                            <p>No standing social events yet.</p>
+                            <a href="{% url 'social_event_create' %}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-plus me-1"></i> Create Event
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'social_event_list' %}" class="text-decoration-none">
+                        Manage social events <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header bg-light d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Recent Voice Notes</h5>
+                    <a href="{% url 'voice_note_create' %}" class="btn btn-outline-primary btn-sm">
+                        <i class="fas fa-plus me-1"></i> New Note
+                    </a>
+                </div>
+                <div class="card-body">
+                    {% if recent_voice_notes %}
+                        <ul class="list-group list-group-flush">
+                            {% for note in recent_voice_notes %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                        <h6 class="mb-0">{{ note.title|default:"Untitled Note" }}</h6>
+                                        <small class="text-muted">{{ note.date|date:"M d, Y" }}</small>
+                                    </div>
+                                    <a href="{% url 'voice_note_detail' pk=note.pk %}" class="btn btn-sm btn-outline-primary">
+                                        <i class="fas fa-play"></i>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <div class="text-center py-3">
+                            <i class="fas fa-microphone fa-2x text-primary mb-2"></i>
+                            <p>No voice notes recorded yet.</p>
+                            <a href="{% url 'voice_note_create' %}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-plus me-1"></i> Record Note
+                            </a>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'voice_note_list' %}" class="text-decoration-none">
+                        View all voice notes <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Quick Actions Section -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">Quick Actions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row text-center">
+                        <div class="col-md-2 col-6 mb-3">
+                            <a href="{% url 'quarterly_quest_create' %}" class="btn btn-outline-primary d-flex flex-column align-items-center justify-content-center p-3 h-100 w-100">
+                                <i class="fas fa-trophy fa-2x mb-2"></i>
+                                <span>New Quest</span>
+                            </a>
+                        </div>
+                        <div class="col-md-2 col-6 mb-3">
+                            <a href="{% url 'weekly_reset_current' %}" class="btn btn-outline-primary d-flex flex-column align-items-center justify-content-center p-3 h-100 w-100">
+                                <i class="fas fa-sync fa-2x mb-2"></i>
+                                <span>Weekly Reset</span>
+                            </a>
+                        </div>
+                        <div class="col-md-2 col-6 mb-3">
+                            <a href="{% url 'morning_manifesto_today' %}" class="btn btn-outline-primary d-flex flex-column align-items-center justify-content-center p-3 h-100 w-100">
+                                <i class="fas fa-sun fa-2x mb-2"></i>
+                                <span>Today's Plan</span>
+                            </a>
+                        </div>
+                        <div class="col-md-2 col-6 mb-3">
+                            <a href="{% url 'focus_session_start' %}" class="btn btn-outline-primary d-flex flex-column align-items-center justify-content-center p-3 h-100 w-100">
+                                <i class="fas fa-stopwatch fa-2x mb-2"></i>
+                                <span>Focus Session</span>
+                            </a>
+                        </div>
+                        <div class="col-md-2 col-6 mb-3">
+                            <a href="{% url 'social_event_create' %}" class="btn btn-outline-primary d-flex flex-column align-items-center justify-content-center p-3 h-100 w-100">
+                                <i class="fas fa-users fa-2x mb-2"></i>
+                                <span>Social Event</span>
+                            </a>
+                        </div>
+                        <div class="col-md-2 col-6 mb-3">
+                            <a href="{% url 'voice_note_create' %}" class="btn btn-outline-primary d-flex flex-column align-items-center justify-content-center p-3 h-100 w-100">
+                                <i class="fas fa-microphone fa-2x mb-2"></i>
+                                <span>Voice Note</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Add any dashboard-specific JavaScript here
+    document.addEventListener('DOMContentLoaded', function() {
+        // You could add charts, timers, or other interactive elements
+    });
+</script>
+{% endblock %}
